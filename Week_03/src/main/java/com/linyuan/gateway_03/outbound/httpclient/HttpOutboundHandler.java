@@ -1,115 +1,129 @@
-package com.linyuan.gateway_02.outbound.httpclient4;
+package com.linyuan.gateway_03.outbound.httpclient;
 
-
+import com.linyuan.gateway_03.router.HttpEndpointRouter;
+import com.linyuan.gateway_03.router.impl.HttpEndpointRouterImpl;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpUtil;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.concurrent.FutureCallback;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
+import org.apache.http.impl.nio.conn.PoolingNHttpClientConnectionManager;
+import org.apache.http.impl.nio.reactor.DefaultConnectingIOReactor;
 import org.apache.http.impl.nio.reactor.IOReactorConfig;
+import org.apache.http.nio.reactor.ConnectingIOReactor;
+import org.apache.http.nio.reactor.IOReactorException;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.NO_CONTENT;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
-public class HttpOutboundHandler {
-    
+/**
+ * @Author DengXi
+ * @Date 2021/1/27 3:37 下午
+ * @desc:描述
+ */
+public class HttpOutboundHandler extends ChannelOutboundHandlerAdapter {
+
     private CloseableHttpAsyncClient httpclient;
-    private ExecutorService proxyService;
+
     private String backendUrl;
-    
-    public HttpOutboundHandler(String backendUrl){
-        this.backendUrl = backendUrl.endsWith("/")?backendUrl.substring(0,backendUrl.length()-1):backendUrl;
+
+    private HttpEndpointRouter router = new HttpEndpointRouterImpl();
+
+    private AtomicInteger num = new AtomicInteger(0);
+
+    public HttpOutboundHandler() {
         int cores = Runtime.getRuntime().availableProcessors() * 2;
-        long keepAliveTime = 1000;
-        int queueSize = 2048;
-        RejectedExecutionHandler handler = new ThreadPoolExecutor.CallerRunsPolicy();//.DiscardPolicy();
-        proxyService = new ThreadPoolExecutor(cores, cores,
-                keepAliveTime, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(queueSize),
-                new NamedThreadFactory("proxyService"), handler);
-        
-        IOReactorConfig ioConfig = IOReactorConfig.custom()
-                .setConnectTimeout(1000)
-                .setSoTimeout(1000)
-                .setIoThreadCount(cores)
-                .setRcvBufSize(32 * 1024)
+
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setConnectTimeout(500000)
+                .setSocketTimeout(500000)
+                .setConnectionRequestTimeout(10000)
                 .build();
-        
-        httpclient = HttpAsyncClients.custom().setMaxConnTotal(40)
-                .setMaxConnPerRoute(8)
-                .setDefaultIOReactorConfig(ioConfig)
-                .setKeepAliveStrategy((response,context) -> 6000)
+
+        // 配置io线程
+        IOReactorConfig ioReactorConfig = IOReactorConfig.custom().
+                setIoThreadCount(Runtime.getRuntime().availableProcessors())
+                .setSoKeepAlive(true)
+                .build();
+        // 设置连接池大小
+        ConnectingIOReactor ioReactor = null;
+        try {
+            ioReactor = new DefaultConnectingIOReactor(ioReactorConfig);
+        } catch (IOReactorException e) {
+            e.printStackTrace();
+        }
+        PoolingNHttpClientConnectionManager connManager = new PoolingNHttpClientConnectionManager(ioReactor);
+        connManager.setMaxTotal(100);
+        connManager.setDefaultMaxPerRoute(100);
+
+
+        httpclient = HttpAsyncClients.custom().setConnectionManager(connManager)
+                .setDefaultRequestConfig(requestConfig)
+                .setDefaultIOReactorConfig(ioReactorConfig)
                 .build();
         httpclient.start();
     }
-    
+
     public void handle(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx) {
-        final String url = this.backendUrl + fullRequest.uri();
+        String url = router.route();
         fetchGet(fullRequest, ctx, url);
     }
-    
-    private void fetchGet(final FullHttpRequest inbound, final ChannelHandlerContext ctx, final String url) {
+
+    private void fetchGet(FullHttpRequest fullRequest, ChannelHandlerContext ctx, String url) {
         final HttpGet httpGet = new HttpGet(url);
-        //httpGet.setHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
+        //httpGet.setProtocolVersion(HttpVersion.HTTP_1_0);
         httpGet.setHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_KEEP_ALIVE);
         httpclient.execute(httpGet, new FutureCallback<HttpResponse>() {
             @Override
             public void completed(final HttpResponse endpointResponse) {
+                System.out.println("有结果啦");
                 try {
-                    handleResponse(inbound, ctx, endpointResponse);
+                    handleResponse(fullRequest, ctx, endpointResponse);
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    
                 }
             }
-            
+
             @Override
             public void failed(final Exception ex) {
                 httpGet.abort();
                 ex.printStackTrace();
+                exceptionCaught(ctx, ex);
             }
-            
+
             @Override
             public void cancelled() {
                 httpGet.abort();
             }
         });
     }
-    
+
+
     private void handleResponse(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx, final HttpResponse endpointResponse) throws Exception {
         FullHttpResponse response = null;
         try {
-//            String value = "hello,kimmking";
-//            response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(value.getBytes("UTF-8")));
-//            response.headers().set("Content-Type", "application/json");
-//            response.headers().setInt("Content-Length", response.content().readableBytes());
-    
-    
             byte[] body = EntityUtils.toByteArray(endpointResponse.getEntity());
-//            System.out.println(new String(body));
-//            System.out.println(body.length);
-    
+
             response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(body));
             response.headers().set("Content-Type", "application/json");
             response.headers().setInt("Content-Length", Integer.parseInt(endpointResponse.getFirstHeader("Content-Length").getValue()));
-    
-//            for (Header e : endpointResponse.getAllHeaders()) {
-//                //response.headers().set(e.getName(),e.getValue());
-//                System.out.println(e.getName() + " => " + e.getValue());
-//            } 
-        
+
         } catch (Exception e) {
             e.printStackTrace();
             response = new DefaultFullHttpResponse(HTTP_1_1, NO_CONTENT);
@@ -124,15 +138,19 @@ public class HttpOutboundHandler {
                 }
             }
             ctx.flush();
-            ctx.close();
+            //ctx.close();
         }
-        
+
     }
-    
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        FullHttpResponse response = null;
+        response = new DefaultFullHttpResponse(HTTP_1_1, NO_CONTENT);
+        ctx.write(response);
         cause.printStackTrace();
-        ctx.close();
+        ctx.flush();
     }
-    
-    
+
+
 }
