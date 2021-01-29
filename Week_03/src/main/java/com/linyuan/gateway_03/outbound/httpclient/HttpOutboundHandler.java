@@ -1,5 +1,9 @@
 package com.linyuan.gateway_03.outbound.httpclient;
 
+import com.linyuan.gateway_03.filter.HttpRequestFilter;
+import com.linyuan.gateway_03.filter.HttpResponseFilter;
+import com.linyuan.gateway_03.filter.impl.HeadHttpResponseFilterImpl;
+import com.linyuan.gateway_03.filter.impl.HttpRequestFilterImpl;
 import com.linyuan.gateway_03.router.HttpEndpointRouter;
 import com.linyuan.gateway_03.router.impl.HttpEndpointRouterImpl;
 import io.netty.buffer.Unpooled;
@@ -11,7 +15,6 @@ import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpUtil;
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.concurrent.FutureCallback;
@@ -24,8 +27,6 @@ import org.apache.http.nio.reactor.ConnectingIOReactor;
 import org.apache.http.nio.reactor.IOReactorException;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.NO_CONTENT;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
@@ -44,7 +45,7 @@ public class HttpOutboundHandler extends ChannelOutboundHandlerAdapter {
 
     private HttpEndpointRouter router = new HttpEndpointRouterImpl();
 
-    private AtomicInteger num = new AtomicInteger(0);
+    private HttpResponseFilter responseFilter = new HeadHttpResponseFilterImpl();
 
     public HttpOutboundHandler() {
         int cores = Runtime.getRuntime().availableProcessors() * 2;
@@ -91,7 +92,7 @@ public class HttpOutboundHandler extends ChannelOutboundHandlerAdapter {
         httpclient.execute(httpGet, new FutureCallback<HttpResponse>() {
             @Override
             public void completed(final HttpResponse endpointResponse) {
-                System.out.println("有结果啦");
+                //System.out.println("有结果啦");
                 try {
                     handleResponse(fullRequest, ctx, endpointResponse);
                 } catch (Exception e) {
@@ -121,9 +122,7 @@ public class HttpOutboundHandler extends ChannelOutboundHandlerAdapter {
             byte[] body = EntityUtils.toByteArray(endpointResponse.getEntity());
 
             response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(body));
-            response.headers().set("Content-Type", "application/json");
-            response.headers().setInt("Content-Length", Integer.parseInt(endpointResponse.getFirstHeader("Content-Length").getValue()));
-
+            responseFilter.filter(response);
         } catch (Exception e) {
             e.printStackTrace();
             response = new DefaultFullHttpResponse(HTTP_1_1, NO_CONTENT);
@@ -133,12 +132,10 @@ public class HttpOutboundHandler extends ChannelOutboundHandlerAdapter {
                 if (!HttpUtil.isKeepAlive(fullRequest)) {
                     ctx.write(response).addListener(ChannelFutureListener.CLOSE);
                 } else {
-                    //response.headers().set(CONNECTION, KEEP_ALIVE);
                     ctx.write(response);
                 }
             }
             ctx.flush();
-            //ctx.close();
         }
 
     }
