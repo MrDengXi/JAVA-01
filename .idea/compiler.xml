@@ -12,9 +12,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Week_02" target="1.5" />
+      <module name="Week_02" target="8" />
       <module name="Week_03" target="1.8" />
-      <module name="Week_04" target="1.5" />
+      <module name="Week_04" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
