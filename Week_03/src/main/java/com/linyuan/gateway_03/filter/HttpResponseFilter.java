@@ -1,5 +1,6 @@
 package com.linyuan.gateway_03.filter;
 
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpResponse;
 
 
@@ -10,6 +11,6 @@ import io.netty.handler.codec.http.FullHttpResponse;
  */
 public interface HttpResponseFilter {
 
-    void filter(FullHttpResponse response);
+    void filter(FullHttpResponse response, ChannelHandlerContext ctx);
 
 }

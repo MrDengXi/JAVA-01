@@ -2,6 +2,7 @@ package com.linyuan.gateway_03.filter.impl;
 
 import com.linyuan.gateway_03.filter.HttpRequestFilter;
 import com.linyuan.gateway_03.filter.HttpResponseFilter;
+import com.linyuan.gateway_03.util.ThreadLocalUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.buffer.UnpooledHeapByteBuf;
@@ -20,7 +21,9 @@ public class HeadHttpResponseFilterImpl implements HttpResponseFilter {
     private final String HelloWorld = "Hello, world!";
 
     @Override
-    public void filter(FullHttpResponse response) {
+    public void filter(FullHttpResponse response, ChannelHandlerContext ctx) {
+//        Long startTime = (Long) ctx.;
+//        System.out.println("请求时间：" + String.valueOf(System.currentTimeMillis() - startTime));
         byte[] bytes = HelloWorld.getBytes();
         ByteBuf buf = Unpooled.buffer(response.content().readableBytes() + bytes.length);
         response.content().maxCapacity();

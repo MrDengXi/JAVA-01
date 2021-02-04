@@ -113,6 +113,7 @@ public class HttpOutboundHandler extends ChannelOutboundHandlerAdapter {
                 httpGet.abort();
             }
         });
+
     }
 
 
@@ -122,7 +123,7 @@ public class HttpOutboundHandler extends ChannelOutboundHandlerAdapter {
             byte[] body = EntityUtils.toByteArray(endpointResponse.getEntity());
 
             response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(body));
-            responseFilter.filter(response);
+            responseFilter.filter(response, ctx);
         } catch (Exception e) {
             e.printStackTrace();
             response = new DefaultFullHttpResponse(HTTP_1_1, NO_CONTENT);
