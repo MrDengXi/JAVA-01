@@ -15,8 +15,13 @@ public class Thread14 {
     static Semaphore semaphore = new Semaphore(50);
     public static void main(String[] args) throws InterruptedException {
         new Thread(() -> {
-            result = add(10001);
             semaphore.release(50);
+
+            try {
+                result = add(10001);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }).start();
         semaphore.acquire(99);
         System.out.println("异步结果为：" + result);
@@ -24,9 +29,15 @@ public class Thread14 {
         System.out.println("主线程执行完毕！");
     }
 
-    public static Integer add(Integer num) {
+    public static Integer add(Integer num) throws InterruptedException {
+        //Thread.sleep(100);
         Integer result = 0;
+
+        for (int i = 0; i < 100; i++) {
+            result++;
+        }
         result += num;
         return result;
     }
+
 }
