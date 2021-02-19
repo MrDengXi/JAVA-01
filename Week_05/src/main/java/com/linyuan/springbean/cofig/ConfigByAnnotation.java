@@ -17,6 +17,7 @@ public class ConfigByAnnotation {
      */
     @Bean(value = "getStudent")
     public Student getStudent() {
+        System.out.println("基于@Bean的spring装配");
         return new Student(9988, "张三丰", 101);
     }
 }

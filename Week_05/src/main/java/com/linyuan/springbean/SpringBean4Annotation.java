@@ -1,11 +1,9 @@
 package com.linyuan.springbean;
 
 import com.linyuan.springbean.bean.Student;
-import com.linyuan.springbean.cofig.StudentBean;
+import com.linyuan.springbean.cofig.StudentBean2;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import javax.annotation.Resource;
 
 /**
  * @Author DengXi
@@ -13,13 +11,17 @@ import javax.annotation.Resource;
  * @desc:描述
  */
 public class SpringBean4Annotation {
-
     public static void main(String[] args) {
         // 根据xml文件初始化Spring上下文
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-bean.xml");
-        // 根据xml中配置的有参构造获取对应的bean
-        StudentBean studentBean = (StudentBean) context.getBean("student-bean");
-        studentBean.System();
+
+        // 基于 @Configuration 跟 @Bean 的spring bean的装载
+        Student studentBean = (Student) context.getBean("getStudent");
+        System.out.println(studentBean);
+
+        // 基于 @Component 的spring bean装配
+        StudentBean2 studentBean1 = (StudentBean2) context.getBean("StudentBean2");
+        studentBean1.System();
     }
 
 }

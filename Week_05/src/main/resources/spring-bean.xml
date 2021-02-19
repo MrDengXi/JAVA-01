@@ -26,8 +26,6 @@
 
     <bean id="aop2" class="com.linyuan.springaop.aop.Aop2"></bean>
 
-    <bean id="student-bean" class="com.linyuan.springbean.cofig.StudentBean"></bean>
-
     <!-- spring 自动创建代理织入切面 -->
     <aop:aspectj-autoproxy />
 
