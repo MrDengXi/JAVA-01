@@ -23,24 +23,14 @@ public class JdbcPreparedStatementDao implements StudentDao {
         this.dataSource = dataSource;
     }
 
-    private Connection conn = null;
-    private PreparedStatement ps = null;
-
-    public void getConn() throws SQLException {
-        conn = dataSource.getConnection();
-        conn.setAutoCommit(false);
-    }
-
-    public void closeConn() throws SQLException {
-        ps.close();
-        conn.close();
-    }
-
     @Override
     public int insert(Student student) {
         String sql = "insert into student(id, name, age) values(?, ?, ?)";
+        Connection conn = null;
+        PreparedStatement ps = null;
         try {
-            getConn();
+            conn = dataSource.getConnection();
+            conn.setAutoCommit(false);
             ps = conn.prepareStatement(sql);
             ps.setInt(1, student.getId());
             ps.setString(2, student.getName());
@@ -51,19 +41,36 @@ public class JdbcPreparedStatementDao implements StudentDao {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-                closeConn();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             return 0;
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     @Override
     public int deleteById(int id) {
         String sql = "delete from student where id = ?";
+        Connection conn = null;
+        PreparedStatement ps = null;
         try {
-            getConn();
+            conn = dataSource.getConnection();
+            conn.setAutoCommit(false);
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             int resultNum = ps.executeUpdate();
@@ -72,19 +79,36 @@ public class JdbcPreparedStatementDao implements StudentDao {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-                closeConn();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             return 0;
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     @Override
     public int updateById(Student student) {
         String sql = "update student set name = ?, age = ? where id = ?";
+        Connection conn = null;
+        PreparedStatement ps = null;
         try {
-            getConn();
+            conn = dataSource.getConnection();
+            conn.setAutoCommit(false);
             ps = conn.prepareStatement(sql);
             ps.setString(1, student.getName());
             ps.setInt(2, student.getAge());
@@ -95,11 +119,25 @@ public class JdbcPreparedStatementDao implements StudentDao {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-                closeConn();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             return 0;
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -107,8 +145,11 @@ public class JdbcPreparedStatementDao implements StudentDao {
     public Student findById(int id) {
         String sql = "select * from student where id = ?";
         Student student = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
         try {
-            getConn();
+            conn = dataSource.getConnection();
+            conn.setAutoCommit(false);
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet result = ps.executeQuery();
@@ -120,11 +161,25 @@ public class JdbcPreparedStatementDao implements StudentDao {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-                closeConn();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             return student;
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
