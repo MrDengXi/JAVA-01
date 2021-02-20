@@ -50,6 +50,7 @@ public class JdbcPreparedStatementDao implements StudentDao {
             return resultNum;
         } catch (SQLException e) {
             try {
+                conn.rollback();
                 closeConn();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -70,6 +71,7 @@ public class JdbcPreparedStatementDao implements StudentDao {
             return resultNum;
         } catch (SQLException e) {
             try {
+                conn.rollback();
                 closeConn();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -92,6 +94,7 @@ public class JdbcPreparedStatementDao implements StudentDao {
             return resultNum;
         } catch (SQLException e) {
             try {
+                conn.rollback();
                 closeConn();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -116,6 +119,7 @@ public class JdbcPreparedStatementDao implements StudentDao {
             return student;
         } catch (SQLException e) {
             try {
+                conn.rollback();
                 closeConn();
             } catch (SQLException ex) {
                 ex.printStackTrace();
