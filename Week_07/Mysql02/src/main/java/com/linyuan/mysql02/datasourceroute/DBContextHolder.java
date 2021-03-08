@@ -2,8 +2,6 @@ package com.linyuan.mysql02.datasourceroute;
 
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.Data;
-
 /**
  * @Author DengXi
  * @Date 2021/3/8 9:39 上午

@@ -6,19 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mysql02" />
         <module name="Spring" />
         <module name="Week_04" />
         <module name="Week_03" />
         <module name="Week_02" />
+        <module name="mysql03" />
         <module name="SpringBootStarter" />
-        <module name="mysql01" />
         <module name="Spring-JDBC" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="mysql01" target="1.8" />
       <module name="mysql02" target="1.8" />
+      <module name="mysql03" target="1.8" />
       <module name="Spring" target="1.5" />
       <module name="Spring (1)" target="1.5" />
       <module name="Spring-JDBC" target="1.5" />
@@ -35,6 +35,7 @@
       <module name="Week_03" options="-parameters" />
       <module name="mysql01" options="-parameters" />
       <module name="mysql02" options="-parameters" />
+      <module name="mysql03" options="-parameters" />
     </option>
   </component>
 </project>

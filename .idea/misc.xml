@@ -16,7 +16,14 @@
         <option value="$PROJECT_DIR$/Week_05/Spring-JDBC/pom.xml" />
         <option value="$PROJECT_DIR$/Week_07/Mysql01/pom.xml" />
         <option value="$PROJECT_DIR$/Week_07/Mysql02/pom.xml" />
+        <option value="$PROJECT_DIR$/Week_07/Mysql03/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/Week_07/Mysql01/pom.xml" />
+        <option value="$PROJECT_DIR$/Week_07/Mysql02/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
