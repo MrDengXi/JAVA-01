@@ -1,4 +1,4 @@
-package com.example.demo.demo1;
+package com.linyuan.mysql02.demo1;
 
 import com.linyuan.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;

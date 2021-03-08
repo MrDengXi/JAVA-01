@@ -10,6 +10,8 @@
       <module fileurl="file://$PROJECT_DIR$/Week_02/Week_02.iml" filepath="$PROJECT_DIR$/Week_02/Week_02.iml" />
       <module fileurl="file://$PROJECT_DIR$/Week_03/Week_03.iml" filepath="$PROJECT_DIR$/Week_03/Week_03.iml" />
       <module fileurl="file://$PROJECT_DIR$/Week_04/Week_04.iml" filepath="$PROJECT_DIR$/Week_04/Week_04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_07/Mysql01/mysql01.iml" filepath="$PROJECT_DIR$/Week_07/Mysql01/mysql01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_07/Mysql02/mysql02.iml" filepath="$PROJECT_DIR$/Week_07/Mysql02/mysql02.iml" />
     </modules>
   </component>
 </project>
