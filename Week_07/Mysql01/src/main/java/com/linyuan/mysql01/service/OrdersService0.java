@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @Date 2021/3/7 11:09 下午
  * @desc:描述
  */
-@Service("ordersService0")
+@Service
 public class OrdersService0 {
     @Autowired
     private OrdersMapper ordersMapper;

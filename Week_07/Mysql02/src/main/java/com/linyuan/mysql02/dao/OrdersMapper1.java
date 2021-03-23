@@ -1,6 +1,6 @@
-package com.linyuan.mysql02.dao;
+package com.linyuan.mysql.mapper;
 
-import com.linyuan.mysql02.bean.Orders;
+import com.linyuan.mysql.bean.Orders;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

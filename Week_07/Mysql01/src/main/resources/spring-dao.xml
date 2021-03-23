@@ -6,7 +6,7 @@
 
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close" primary="true" >
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf8"/>
+        <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/test1?characterEncoding=utf8"/>
         <property name="username" value="root"/>
         <property name="password" value="123456789"/>
         <property name="connectionTimeout" value="1000" />

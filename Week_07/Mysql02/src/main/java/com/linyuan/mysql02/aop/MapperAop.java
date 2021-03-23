@@ -1,7 +1,7 @@
-package com.linyuan.mysql02.aop;
+package com.linyuan.mysql.aop;
 
-import com.linyuan.mysql02.annotation.DataSource2;
-import com.linyuan.mysql02.datasourceroute.DBContextHolder;
+import com.linyuan.mysql.annotation.DataSource2;
+import com.linyuan.mysql.datasourceroute.DBContextHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.reflect.MethodSignature;

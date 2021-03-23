@@ -1,9 +1,9 @@
-package com.linyuan.mysql02.service;
+package com.linyuan.mysql.service;
 
-import com.linyuan.mysql02.annotation.DataSource2;
-import com.linyuan.mysql02.bean.Orders;
-import com.linyuan.mysql02.dao.OrdersMapper1;
-import com.linyuan.mysql02.utils.SnowflakeId;
+import com.linyuan.mysql.annotation.DataSource2;
+import com.linyuan.mysql.bean.Orders;
+import com.linyuan.mysql.mapper.OrdersMapper1;
+import com.linyuan.mysql.utils.SnowflakeId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

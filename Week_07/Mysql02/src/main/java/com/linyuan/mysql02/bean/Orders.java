@@ -1,4 +1,4 @@
-package com.linyuan.mysql02.bean;
+package com.linyuan.mysql.bean;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

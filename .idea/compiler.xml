@@ -10,12 +10,13 @@
         <module name="Week_04" />
         <module name="Week_03" />
         <module name="Week_02" />
-        <module name="mysql03" />
+        <module name="mysql" />
         <module name="SpringBootStarter" />
         <module name="Spring-JDBC" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="mysql" target="1.8" />
       <module name="mysql01" target="1.8" />
       <module name="mysql02" target="1.8" />
       <module name="mysql03" target="1.8" />
@@ -33,6 +34,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="SpringBootStarter" options="-parameters" />
       <module name="Week_03" options="-parameters" />
+      <module name="mysql" options="-parameters" />
       <module name="mysql01" options="-parameters" />
       <module name="mysql02" options="-parameters" />
       <module name="mysql03" options="-parameters" />

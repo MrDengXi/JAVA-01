@@ -1,6 +1,7 @@
 package com.linyuan.mysql01.controller;
 
 import com.linyuan.mysql01.service.OrdersService0;
+import com.linyuan.mysql01.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +15,10 @@ import javax.annotation.Resource;
  */
 @RestController("testController0")
 public class TestController0 {
-    @Resource(name = "ordersService0")
+    @Resource
     private OrdersService0 ordersService0;
+    @Resource
+    private PatientService patientService;
 
     @GetMapping("/test1")
     public String test1() {
@@ -26,7 +29,7 @@ public class TestController0 {
 
     @GetMapping("/test2")
     public String test2() {
-        ordersService0.insertByThreadPool();
+        patientService.insertByThreadPool();
         return "success";
     }
 }

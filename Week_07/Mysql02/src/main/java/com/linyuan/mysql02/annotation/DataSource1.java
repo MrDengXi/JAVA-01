@@ -1,4 +1,4 @@
-package com.linyuan.mysql02.annotation;
+package com.linyuan.mysql.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

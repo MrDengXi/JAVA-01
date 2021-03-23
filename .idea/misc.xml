@@ -17,12 +17,14 @@
         <option value="$PROJECT_DIR$/Week_07/Mysql01/pom.xml" />
         <option value="$PROJECT_DIR$/Week_07/Mysql02/pom.xml" />
         <option value="$PROJECT_DIR$/Week_07/Mysql03/pom.xml" />
+        <option value="$PROJECT_DIR$/Week_08/Mysql/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/Week_07/Mysql01/pom.xml" />
         <option value="$PROJECT_DIR$/Week_07/Mysql02/pom.xml" />
+        <option value="$PROJECT_DIR$/Week_07/Mysql03/pom.xml" />
       </set>
     </option>
   </component>

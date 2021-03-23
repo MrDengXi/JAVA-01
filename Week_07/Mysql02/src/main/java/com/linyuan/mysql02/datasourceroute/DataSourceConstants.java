@@ -1,4 +1,4 @@
-package com.linyuan.mysql02.datasourceroute;
+package com.linyuan.mysql.datasourceroute;
 
 /**
  * @Author DengXi

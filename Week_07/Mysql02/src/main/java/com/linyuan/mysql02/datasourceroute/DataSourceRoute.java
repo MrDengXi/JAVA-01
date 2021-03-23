@@ -1,4 +1,4 @@
-package com.linyuan.mysql02.datasourceroute;
+package com.linyuan.mysql.datasourceroute;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;

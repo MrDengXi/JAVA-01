@@ -1,6 +1,6 @@
-package com.linyuan.mysql02.controller;
+package com.linyuan.mysql.controller;
 
-import com.linyuan.mysql02.service.OrdersService1;
+import com.linyuan.mysql.service.OrdersService1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

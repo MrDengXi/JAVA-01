@@ -1,4 +1,4 @@
-package com.linyuan.mysql02;
+package com.linyuan.mysql;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
