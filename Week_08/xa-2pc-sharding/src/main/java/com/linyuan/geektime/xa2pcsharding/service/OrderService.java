@@ -51,7 +51,7 @@ public class OrderService {
         Long userId = snowflakeId.nextId();
         System.out.println(userId);
         orders.setUserId(userId);
-       ordersMapper.insert(orders);
+        ordersMapper.insert(orders);
         throw new SQLException("insert error");
     }
 
