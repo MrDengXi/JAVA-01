@@ -10,7 +10,6 @@
         <module name="Week_04" />
         <module name="Week_03" />
         <module name="Week_02" />
-        <module name="mysql" />
         <module name="SpringBootStarter" />
         <module name="Spring-JDBC" />
       </profile>
