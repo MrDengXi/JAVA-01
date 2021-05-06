@@ -10,6 +10,17 @@
       <module fileurl="file://$PROJECT_DIR$/Week_02/Week_02.iml" filepath="$PROJECT_DIR$/Week_02/Week_02.iml" />
       <module fileurl="file://$PROJECT_DIR$/Week_03/Week_03.iml" filepath="$PROJECT_DIR$/Week_03/Week_03.iml" />
       <module fileurl="file://$PROJECT_DIR$/Week_04/Week_04.iml" filepath="$PROJECT_DIR$/Week_04/Week_04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/dubbo-hmily-tcc-api/dubbo-hmily-tcc-api.iml" filepath="$PROJECT_DIR$/Week_09/dubbo-hmily-tcc-api/dubbo-hmily-tcc-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/dubbo-hmily-tcc-consumer/dubbo-hmily-tcc-consumer.iml" filepath="$PROJECT_DIR$/Week_09/dubbo-hmily-tcc-consumer/dubbo-hmily-tcc-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/dubbo-hmily-tcc-provider/dubbo-hmily-tcc-demo.iml" filepath="$PROJECT_DIR$/Week_09/dubbo-hmily-tcc-provider/dubbo-hmily-tcc-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/rusticolus-rpc/rusticolus-rpc.iml" filepath="$PROJECT_DIR$/Week_09/rusticolus-rpc/rusticolus-rpc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/rusticolus-rpc/rusticolus-rpc-client/rusticolus-rpc-client.iml" filepath="$PROJECT_DIR$/Week_09/rusticolus-rpc/rusticolus-rpc-client/rusticolus-rpc-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/rusticolus-rpc/rusticolus-rpc-common/rusticolus-rpc-common.iml" filepath="$PROJECT_DIR$/Week_09/rusticolus-rpc/rusticolus-rpc-common/rusticolus-rpc-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/rusticolus-rpc-demo/rusticolus-rpc-demo.iml" filepath="$PROJECT_DIR$/Week_09/rusticolus-rpc-demo/rusticolus-rpc-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/rusticolus-rpc-demo/rusticolus-rpc-demo-api/rusticolus-rpc-demo-api.iml" filepath="$PROJECT_DIR$/Week_09/rusticolus-rpc-demo/rusticolus-rpc-demo-api/rusticolus-rpc-demo-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/rusticolus-rpc-demo/rusticolus-rpc-demo-consumer/rusticolus-rpc-demo-consumer.iml" filepath="$PROJECT_DIR$/Week_09/rusticolus-rpc-demo/rusticolus-rpc-demo-consumer/rusticolus-rpc-demo-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/rusticolus-rpc-demo/rusticolus-rpc-demo-provider/rusticolus-rpc-demo-provider.iml" filepath="$PROJECT_DIR$/Week_09/rusticolus-rpc-demo/rusticolus-rpc-demo-provider/rusticolus-rpc-demo-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week_09/rusticolus-rpc/rusticolus-rpc-server/rusticolus-rpc-server.iml" filepath="$PROJECT_DIR$/Week_09/rusticolus-rpc/rusticolus-rpc-server/rusticolus-rpc-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/Week_08/xa-2pc-sharding/xa-2pc-sharding.iml" filepath="$PROJECT_DIR$/Week_08/xa-2pc-sharding/xa-2pc-sharding.iml" />
     </modules>
   </component>
