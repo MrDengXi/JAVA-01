@@ -1,0 +1,16 @@
+server:
+  servlet:
+    context-path: /
+  port: 8080
+spring:
+  application:
+    name: transaction-box
+  datasource:
+    name: mysql80
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3326/db?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&autoReconnect=true&allowMultiQueries=true
+    username: root
+    password: root
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.linyuan.jeektime.springtransactionbox.dao
